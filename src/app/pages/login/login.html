@@ -1,0 +1,62 @@
+
+
+<section class="d-flex justify-content-center align-items-center min-vh-100 bg-light">
+  <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+    
+    <div class="card card-body shadow-sm p-4">
+      <h3 class="text-center fw-bold mb-1">Iniciar Sesión</h3>
+
+      <form [formGroup]="formularioLogin" (ngSubmit)="ingresar()">
+        <!-- Campo user -->
+        <div class="mb-3">
+          <label for="user" class="form-label">User</label>
+          <input
+            id="user"
+            type="text"
+            class="form-control"
+            formControlName="user"
+            placeholder="tu_usuario"
+            [class.is-invalid]="invalido('user')"
+          />
+          @if (invalido('user')) {
+            <div class="invalid-feedback">Ingresa un usuario válido (mínimo 4 caracteres).</div>
+          }
+        </div>
+
+        <!-- Campo Contraseña (password) -->
+        <div class="mb-3">
+          <label class="form-label" for="password">Password</label>
+          <input 
+            type="password"
+            id="password"
+            class="form-control"
+            placeholder="••••••••"
+            formControlName="password"
+            [class.is-invalid]="invalido('password')"
+          >
+          @if (invalido('password')) {
+            <div class="invalid-feedback">La contraseña debe tener al menos 4 caracteres</div>
+          }
+        </div>
+
+        @if(error ())
+        {
+          <p class="error"> {{error()}}  </p>
+        }
+
+        <!-- Olvidé contraseña -->
+        <div class="d-flex justify-content-end mb-4">
+          <a href="#" class="text-decoration-none small">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <!-- Botón de envío -->
+        <!-- Botón de envío -->
+<button type="submit" class="btn btn-primary w-100 py-2" [disabled]="loading()">
+  {{ loading() ? 'Ingresando...' : 'Iniciar sesión' }}
+</button>
+
+      </form>
+    </div>
+
+  </div>
+</section>

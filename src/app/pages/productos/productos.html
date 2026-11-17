@@ -1,0 +1,38 @@
+<div class="container py-4">
+ <h1 class="text-dark mb-4"
+    style="font-family: 'Poppins', sans-serif; font-weight: 800;">
+  Tienda Online
+</h1>
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+    @for (producto of productos(); track producto.id) {
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+
+          <div class="bg-light p-3 text-center">
+            <img
+              [src]="producto.image"
+              [alt]="producto.title"
+              class="img-fluid"
+              style="height: 200px; object-fit: contain;"
+            >
+          </div>
+
+          <div class="card-body d-flex flex-column">
+            <h6 class="card-title fw-semibold">{{ producto.title }}</h6>
+            <small class="text-muted text-capitalize mb-2">{{ producto.category }}</small>
+            <p class="fw-bold text-primary fs-5 mt-auto mb-0">${{ producto.price }}</p>
+          </div>
+
+          <div class="card-footer bg-white border-0 pb-3">
+            <div class="d-flex gap-2">
+              <button class="btn btn-secondary flex-fill">Ver</button>
+              <button class="btn btn-success flex-fill">Agregar</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    }
+  </div>
+</div>

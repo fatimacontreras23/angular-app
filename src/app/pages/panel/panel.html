@@ -1,0 +1,107 @@
+<section class="bg-light min-vh-100 py-4">
+  <div class="container-fluid">
+    <div class="row g-4 align-items-start">
+
+      <!-- COLUMNA IZQUIERDA: tabla -->
+      <div class="col-12 col-lg-8">
+
+        <div class="card card-body shadow-sm p-4">
+          <h3 class="text-center fw-bold mb-4">Operaciones CRUD</h3>
+
+          <div class="tabla-crud">
+            <div class="fila-crud encabezado">
+              <div class="celda">Imagen</div>
+              <div class="celda">Título</div>
+              <div class="celda">Categoría</div>
+              <div class="celda">Acciones</div>
+            </div>
+
+            @for (p of productos(); track p.id) {
+              <div class="fila-crud">
+                <div class="celda">
+                  <img [src]="p.image" [alt]="p.title" class="img-producto" />
+                </div>
+                <div class="celda">{{ p.title }}</div>
+                <div class="celda">{{ p.category }}</div>
+                <div class="celda gap-2">
+                  <button class="btn btn-danger btn-sm" (click)="borrar(p.id)">Borrar</button>
+                  <button class="btn btn-primary btn-sm" (click)="actualizar(p)">Actualizar</button>
+                </div>
+              </div>
+            } @empty {
+              <p class="text-center text-muted m-3">No hay productos</p>
+            }
+          </div>
+        </div>
+
+        <!-- Formulario de edición (debajo de la tabla) -->
+        @if (editando(); as e) {
+          <div class="card card-body shadow-sm p-4 mt-4">
+            <h4 class="text-center fw-bold mb-3">Actualizar producto</h4>
+
+            <div class="mb-3">
+              <label for="edit-title" class="form-label">Título</label>
+              <input id="edit-title" type="text" class="form-control" [(ngModel)]="e.title" />
+            </div>
+
+            <div class="mb-3">
+              <label for="edit-category" class="form-label">Categoría</label>
+              <input id="edit-category" type="text" class="form-control" [(ngModel)]="e.category" />
+            </div>
+
+            <div class="mb-3">
+              <label for="edit-price" class="form-label">Precio</label>
+              <input id="edit-price" type="number" class="form-control" [(ngModel)]="e.price" />
+            </div>
+
+            <div class="d-flex justify-content-end gap-2">
+              <button class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+              <button class="btn btn-success" (click)="guardar()">Guardar</button>
+            </div>
+          </div>
+        }
+
+      </div>
+
+      <!-- COLUMNA DERECHA: formulario nuevo/editar -->
+      <div class="col-12 col-lg-4">
+        <div class="card card-body shadow-sm p-4">
+          <h2 class="h4 fw-bold mb-3">
+            {{ editingId() === null ? 'Nuevo producto' : 'Editar producto #' + editingId() }}
+          </h2>
+
+          <form (ngSubmit)="save()">
+            <label for="title" class="form-label">Título</label>
+            <input id="title" name="title" class="form-control mb-3" [(ngModel)]="form.title" required />
+
+            <label for="price" class="form-label">Precio</label>
+            <input id="price" name="price" type="number" min="0" step="0.01" class="form-control mb-3"
+              [(ngModel)]="form.price" required />
+
+            <label for="category" class="form-label">Categoría</label>
+            <select id="category" name="category" class="form-select mb-3" [(ngModel)]="form.category" required>
+              <option value="">Selecciona una categoría</option>
+              @for (category of categories(); track category) {
+                <option [value]="category">{{ category }}</option>
+              }
+            </select>
+
+            <label for="image" class="form-label">URL de la imagen</label>
+            <input id="image" name="image" type="url" class="form-control mb-3" [(ngModel)]="form.image" required />
+
+            <label for="description" class="form-label">Descripción</label>
+            <textarea id="description" name="description" rows="3" class="form-control mb-3"
+              [(ngModel)]="form.description"></textarea>
+
+            <button type="submit" class="btn btn-primary w-100">Guardar</button>
+
+            @if (editingId() !== null) {
+              <button type="button" class="btn btn-outline-secondary w-100 mt-2" (click)="cancel()">Cancelar</button>
+            }
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

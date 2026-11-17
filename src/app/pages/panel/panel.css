@@ -1,0 +1,51 @@
+.tabla-crud {
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.fila-crud {
+  display: grid;
+  grid-template-columns: 100px 3fr 2fr 220px;
+  align-items: center;
+  border-top: 1px solid #dee2e6;
+}
+
+.fila-crud:first-child {
+  border-top: none;
+}
+
+.encabezado {
+  background-color: #e9ecef;
+  color: #212529;
+  font-weight: bold;
+}
+
+.encabezado .celda {
+  min-height: 45px;
+  border-left-color: #ced4da;
+}
+
+.celda {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  min-height: 70px;
+  border-left: 1px solid #dee2e6;
+}
+
+.celda:first-child {
+  border-left: none;
+}
+
+.fila-crud:not(.encabezado):hover {
+  background-color: #f8f9fa;
+}
+
+.img-producto {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
